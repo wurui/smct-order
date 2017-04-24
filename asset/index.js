@@ -10,7 +10,7 @@ define(['zepto','mustache'],function(undef,Mustache){
         return [d.getFullYear() , prefix0(d.getMonth() + 1) , prefix0(d.getDate())].join('-') + ' ' + [d.getHours(), prefix0(d.getMinutes()), prefix0(d.getSeconds())].join(':')
     };
     var $list,tpl;
-    var apiHost='http://localhost:8000';
+    var apiHost='http://www.shaomachetie.com';
     var addrToString=function(){
         if(/北京|天津|上海|重庆|/.test(this.province)){
             this.city='';
