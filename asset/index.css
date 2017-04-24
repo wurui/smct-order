@@ -1,3 +1,421 @@
-.oxmod-smct-order{
-/* CSS */
- }
+@font-face {
+  font-family: 'smct-iconfont';
+  /* project id 266910 */
+  src: url('//at.alicdn.com/t/font_0w3gcy6pjd29be29.eot');
+  src: url('//at.alicdn.com/t/font_0w3gcy6pjd29be29.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_0w3gcy6pjd29be29.woff') format('woff'), url('//at.alicdn.com/t/font_0w3gcy6pjd29be29.ttf') format('truetype'), url('//at.alicdn.com/t/font_0w3gcy6pjd29be29.svg#iconfont') format('svg');
+}
+.oxmod-smct-order {
+  text-align: center;
+}
+.oxmod-smct-order .iconfont {
+  font-size: 1.2em;
+  font-family: smct-iconfont;
+}
+.oxmod-smct-order .empty-order {
+  color: #999;
+  margin: 20px 10px;
+}
+.oxmod-smct-order .empty-order .iconfont {
+  color: #aaa;
+  font-size: 55px;
+}
+.oxmod-smct-order .bgcolor-1 {
+  background-color: #0b97c4;
+}
+.oxmod-smct-order .bgcolor-2 {
+  background-color: yellow;
+}
+.oxmod-smct-order .bgcolor-3 {
+  background-color: red;
+}
+.oxmod-smct-order .bgcolor-4 {
+  background-color: rosybrown;
+}
+.oxmod-smct-order .bgcolor-5 {
+  background-color: green;
+}
+.oxmod-smct-order .bgcolor-6 {
+  background-color: greenyellow;
+}
+.oxmod-smct-order .bgcolor-7 {
+  background-color: gray;
+}
+.oxmod-smct-order .bgcolor-8 {
+  background-color: gold;
+}
+.oxmod-smct-order .bgcolor-9 {
+  background-color: blueviolet;
+}
+.oxmod-smct-order .bgcolor-10 {
+  background-color: silver;
+}
+.oxmod-smct-order .bgcolor-11 {
+  background-color: chocolate;
+}
+.oxmod-smct-order .bgcolor-12 {
+  background-color: cadetblue;
+}
+.oxmod-smct-order .color-1 {
+  background-color: #fff;
+}
+.oxmod-smct-order .color-2 {
+  background-color: yellow;
+}
+.oxmod-smct-order .color-3 {
+  background-color: red;
+}
+.oxmod-smct-order .color-4 {
+  background-color: rosybrown;
+}
+.oxmod-smct-order .color-5 {
+  background-color: green;
+}
+.oxmod-smct-order .color-6 {
+  background-color: greenyellow;
+}
+.oxmod-smct-order .color-7 {
+  background-color: gray;
+}
+.oxmod-smct-order .color-8 {
+  background-color: gold;
+}
+.oxmod-smct-order .color-9 {
+  background-color: #0099cc;
+}
+.oxmod-smct-order .color-10 {
+  background-color: silver;
+}
+.oxmod-smct-order .color-11 {
+  background-color: chocolate;
+}
+.oxmod-smct-order .color-12 {
+  background-color: cadetblue;
+}
+.oxmod-smct-order .preview {
+  border-radius: 40px;
+  width: 500px;
+  height: 500px;
+  margin: 10px auto;
+  box-shadow: 0px 0px 5px #999;
+  overflow: hidden;
+  border: solid 1px #ccc;
+  font-family: sans-serif;
+  text-align: center;
+}
+.oxmod-smct-order .qrcode {
+  margin-top: 40px;
+  width: 280px;
+  height: 280px;
+  padding: 5px;
+  border: solid 1px #ccc;
+}
+.oxmod-smct-order .card-header {
+  color: #fff;
+  font-size: 55px;
+  letter-spacing: 5px;
+  height: 120px;
+  line-height: 120px;
+  font-family: '黑体', sans-serif;
+  font-weight: 700;
+}
+.oxmod-smct-order .card-body {
+  background-color: #fff;
+  height: 340px;
+}
+.oxmod-smct-order .card-footer {
+  height: 41px;
+  line-height: 40px;
+  font-size: 18px;
+  color: #666;
+  background-color: #fff;
+  letter-spacing: 1px;
+  margin-top: -1px;
+  /**解决缩放有条线的问题*/
+}
+.oxmod-smct-order .snapshot {
+  width: 50px;
+  height: 55px;
+  border-radius: 10px;
+}
+.oxmod-smct-order .snapshot > .preview {
+  transform: scale(0.1);
+  transform-origin: 0 0;
+  margin: 0;
+}
+.oxmod-smct-order .central {
+  position: absolute;
+  margin-left: 210px;
+  margin-top: 150px;
+  width: 78px;
+  height: 78px;
+  text-align: center;
+  line-height: 78px;
+  overflow: hidden;
+}
+.oxmod-smct-order .central-bg {
+  background-color: #fff;
+}
+.oxmod-smct-order .central img {
+  width: 78px;
+  height: 78px;
+  vertical-align: middle;
+  background-color: #fff;
+  border-radius: 5px;
+}
+.oxmod-smct-order .bt-order {
+  background-color: #f60;
+  width: 120px;
+  color: #fff;
+  display: inline-block;
+  border: none;
+  height: 40px;
+  padding: 0 10px;
+  vertical-align: top;
+  font-size: 15px;
+  letter-spacing: 2px;
+}
+.oxmod-smct-order .bt-order:disabled {
+  background-color: #999;
+}
+.oxmod-smct-order .bt-order:hover {
+  opacity: .8;
+}
+.oxmod-smct-order .empty {
+  text-align: center;
+  padding: 30px 0;
+  color: #888;
+}
+.oxmod-smct-order .iconfont {
+  font-family: smct-iconfont;
+  font-style: normal;
+}
+.oxmod-smct-order .loading {
+  color: #999;
+  padding: 30px 0;
+}
+.oxmod-smct-order .order-table {
+  width: 100%;
+}
+.oxmod-smct-order .order-table thead th {
+  background-color: #f5f5f5;
+  height: 30px;
+}
+.oxmod-smct-order .order-table td {
+  text-align: center;
+  border-top: dotted 1px #f5f5f5;
+  padding: 0 5px;
+}
+.oxmod-smct-order .amount-up,
+.oxmod-smct-order .amount-down {
+  width: 40px;
+  height: 30px;
+  background-color: #f5f5f5;
+  border: solid 1px transparent;
+  padding: 0;
+  outline: none;
+}
+.oxmod-smct-order .amount-up:before,
+.oxmod-smct-order .amount-down:before {
+  content: '';
+  width: 0;
+  height: 0;
+  font-size: 0;
+  display: inline-block;
+  border-width: 5px;
+  border-style: solid;
+}
+.oxmod-smct-order .amount-up:hover,
+.oxmod-smct-order .amount-down:hover {
+  background-color: #ccc;
+}
+.oxmod-smct-order .amount-up:before {
+  border-color: transparent transparent #333 transparent;
+  margin-top: -3px;
+}
+.oxmod-smct-order .amount-down:before {
+  margin-top: 5px;
+  border-color: #333 transparent transparent transparent;
+}
+.oxmod-smct-order .amount-input {
+  width: 40px;
+  height: 30px;
+  font-size: 15px;
+  border: solid 1px #ccc;
+  text-align: center;
+  padding: 0;
+  margin: 5px 0;
+}
+.oxmod-smct-order .price {
+  color: #f60;
+  font-size: 1.2em;
+}
+.oxmod-smct-order big.price {
+  font-size: 1.5em;
+}
+.oxmod-smct-order .price:before {
+  content: '\00a5\20';
+  font-family: sans-serif;
+}
+.oxmod-smct-order hr {
+  height: 0;
+  border: none;
+  border-top: solid 1px #f5f5f5;
+}
+.oxmod-smct-order .onebar {
+  margin: 10px;
+  text-align: left;
+}
+.oxmod-smct-order .lrbar {
+  font-size: 0;
+  margin: 10px;
+  white-space: nowrap;
+}
+.oxmod-smct-order .lrbar > span {
+  width: 50%;
+  font-size: 14px;
+  display: inline-block;
+}
+.oxmod-smct-order .lrbar > span:first-child {
+  text-align: left;
+}
+.oxmod-smct-order .lrbar > span:last-child {
+  text-align: right;
+}
+.oxmod-smct-order .lrbar > span:only-child {
+  width: 100%;
+  text-align: left;
+}
+.oxmod-smct-order .formbar {
+  margin: 10px;
+  padding-left: 60px;
+  text-align: right;
+}
+.oxmod-smct-order .formbar > label:first-child {
+  float: left;
+  margin-left: -60px;
+}
+.oxmod-smct-order .address {
+  display: inline-block;
+  padding-top: 2px;
+  white-space: normal;
+  font-size: 12px;
+  font-weight: 400;
+  font-style: normal;
+  color: #666;
+  padding-right: 10px;
+}
+.oxmod-smct-order .address:before {
+  content: '';
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ccc #ccc transparent transparent;
+  float: right;
+  width: 5px;
+  height: 5px;
+  margin-top: 5px;
+  margin-right: -9px;
+  transform: rotate(45deg);
+}
+.oxmod-smct-order .fullpopup {
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  transition: transform .3s;
+  transform: translate(0, 100%);
+}
+.oxmod-smct-order .fullpopup .title {
+  font-size: 16px;
+  background-color: #f5f5f5;
+  box-shadow: 0 0 6px #999;
+  line-height: 32px;
+  text-align: left;
+  padding: 0 10px;
+  color: #333;
+  font-weight: 400;
+}
+.oxmod-smct-order .fullpopup .title .rightbtn {
+  color: #0099cc;
+  font-size: 12px;
+  float: right;
+  margin-top: 1px;
+}
+.oxmod-smct-order .fullpopup.show {
+  box-shadow: 1px 1px 10px #000;
+  transform: translate(0, 0);
+}
+.oxmod-smct-order .address-form {
+  padding: 10px;
+}
+.oxmod-smct-order .address-form .formitem {
+  padding: 10px 0;
+}
+.oxmod-smct-order .address-form input,
+.oxmod-smct-order .address-form select {
+  border: solid 1px #eee;
+  font-size: 14px;
+  background-color: #fff;
+  height: 26px;
+  border-radius: 5px;
+}
+.oxmod-smct-order .address-form input {
+  width: 100%;
+  padding: 2px 0;
+}
+.oxmod-smct-order .address-form button {
+  width: 100%;
+  height: 40px;
+  background-color: #09c;
+  color: #fff;
+  font-size: 15px;
+  border: solid 1px #ccc;
+  border-radius: 5px;
+  letter-spacing: 5px;
+}
+.oxmod-smct-order .address-form .select-group {
+  display: flex;
+  justify-content: space-between;
+}
+.oxmod-smct-order .address-form .select-group select {
+  height: 30px;
+  width: 32%;
+  text-align: center;
+}
+.oxmod-smct-order .orders-table {
+  font-size: 12px;
+  border: solid 1px #09c;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.oxmod-smct-order .orders-table td:first-child {
+  text-align: left;
+}
+.oxmod-smct-order .orders-table td:last-child {
+  text-align: right;
+}
+.oxmod-smct-order .orders-table td:only-child {
+  text-align: left;
+}
+.oxmod-smct-order .orders-table thead td {
+  text-align: left;
+  color: #08c;
+  background-color: #def;
+}
+.oxmod-smct-order .orders-table tbody td {
+  border-top: solid 1px #ccc;
+  padding: 5px;
+}
+.oxmod-smct-order .orders-table tfoot td {
+  padding: 5px;
+  border-top: solid 1px #f5f5f5;
+}
+.oxmod-smct-order .order-item {
+  width: 50px;
+  height: 70px;
+  float: left;
+  margin-right: 8px;
+  text-align: center;
+}
