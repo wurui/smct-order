@@ -6,8 +6,7 @@
             {{#data}}
             <table class="orders-table" cellpadding="0" cellspacing="0" data-id={{_id}}>
             <thead>
-                <tr><td colspan="2">订单编号: {{order_no}}</td></tr>
-                <tr><td colspan="2">订单时间: {{order_time}}</td></tr>
+                <tr><td>订单时间: {{order_time}}</td><td>{{{statusDesc}}}</td></tr>
             </thead>
             <tbody>
             <tr>
@@ -44,10 +43,11 @@
                     实付金额:&nbsp;&nbsp;<b class="price">{{totalsum}}</b>
                 </td>
             </tr>
+            {{#op}}
              <tr>
-
-                <td colspan="2">{{{op}}}</td>
+                <td colspan="2"><div class="order-op">{{{op}}}</div></td>
             </tr>
+            {{/op}}
         </tfoot>
         </table>
         {{/data}}

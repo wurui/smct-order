@@ -134,8 +134,7 @@
 }
 .oxmod-smct-order .snapshot {
   width: 50px;
-  height: 55px;
-  border-radius: 10px;
+  height: 50px;
 }
 .oxmod-smct-order .snapshot > .preview {
   transform: scale(0.1);
@@ -162,24 +161,6 @@
   background-color: #fff;
   border-radius: 5px;
 }
-.oxmod-smct-order .bt-order {
-  background-color: #f60;
-  width: 120px;
-  color: #fff;
-  display: inline-block;
-  border: none;
-  height: 40px;
-  padding: 0 10px;
-  vertical-align: top;
-  font-size: 15px;
-  letter-spacing: 2px;
-}
-.oxmod-smct-order .bt-order:disabled {
-  background-color: #999;
-}
-.oxmod-smct-order .bt-order:hover {
-  opacity: .8;
-}
 .oxmod-smct-order .empty {
   text-align: center;
   padding: 30px 0;
@@ -192,58 +173,6 @@
 .oxmod-smct-order .loading {
   color: #999;
   padding: 30px 0;
-}
-.oxmod-smct-order .order-table {
-  width: 100%;
-}
-.oxmod-smct-order .order-table thead th {
-  background-color: #f5f5f5;
-  height: 30px;
-}
-.oxmod-smct-order .order-table td {
-  text-align: center;
-  border-top: dotted 1px #f5f5f5;
-  padding: 0 5px;
-}
-.oxmod-smct-order .amount-up,
-.oxmod-smct-order .amount-down {
-  width: 40px;
-  height: 30px;
-  background-color: #f5f5f5;
-  border: solid 1px transparent;
-  padding: 0;
-  outline: none;
-}
-.oxmod-smct-order .amount-up:before,
-.oxmod-smct-order .amount-down:before {
-  content: '';
-  width: 0;
-  height: 0;
-  font-size: 0;
-  display: inline-block;
-  border-width: 5px;
-  border-style: solid;
-}
-.oxmod-smct-order .amount-up:hover,
-.oxmod-smct-order .amount-down:hover {
-  background-color: #ccc;
-}
-.oxmod-smct-order .amount-up:before {
-  border-color: transparent transparent #333 transparent;
-  margin-top: -3px;
-}
-.oxmod-smct-order .amount-down:before {
-  margin-top: 5px;
-  border-color: #333 transparent transparent transparent;
-}
-.oxmod-smct-order .amount-input {
-  width: 40px;
-  height: 30px;
-  font-size: 15px;
-  border: solid 1px #ccc;
-  text-align: center;
-  padding: 0;
-  margin: 5px 0;
 }
 .oxmod-smct-order .price {
   color: #f60;
@@ -403,14 +332,18 @@
   text-align: left;
   color: #08c;
   background-color: #def;
+  padding: 5px;
 }
 .oxmod-smct-order .orders-table tbody td {
-  border-top: solid 1px #ccc;
+  border-top: solid 1px #f5f5f5;
   padding: 5px;
 }
 .oxmod-smct-order .orders-table tfoot td {
   padding: 5px;
   border-top: solid 1px #f5f5f5;
+}
+.oxmod-smct-order .orders-table .order-op {
+  text-align: right;
 }
 .oxmod-smct-order .order-item {
   width: 50px;
@@ -418,4 +351,37 @@
   float: left;
   margin-right: 8px;
   text-align: center;
+}
+.oxmod-smct-order .order-op button {
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  border: solid 1px #ccc;
+  font-size: 12px;
+  padding: 5px;
+  min-width: 50px;
+}
+.oxmod-smct-order .wuliu-detail {
+  font-size: 12px;
+  text-align: left;
+}
+.oxmod-smct-order .wuliu-detail dt {
+  border-bottom: solid 1px #f5f5f5;
+  padding: 5px 0;
+  margin-bottom: 10px;
+}
+.oxmod-smct-order .wuliu-detail dd {
+  padding: 2px 0px 2px 130px;
+  margin: 0;
+  line-height: 1.6;
+  color: #888;
+}
+.oxmod-smct-order .wuliu-detail dd:nth-of-type(1) {
+  color: #555;
+}
+.oxmod-smct-order .wuliu-detail dd > .time {
+  float: left;
+  margin-left: -130px;
+}
+.oxmod-smct-order .wuliu-detail dt > .status {
+  color: #f60;
 }
