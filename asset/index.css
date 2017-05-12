@@ -7,6 +7,9 @@
 .oxmod-smct-order {
   text-align: center;
 }
+.oxmod-smct-order .list {
+  min-height: 120px;
+}
 .oxmod-smct-order .iconfont {
   font-size: 1.2em;
   font-family: smct-iconfont;

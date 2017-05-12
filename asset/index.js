@@ -200,6 +200,7 @@ define(['require','zepto', 'mustache'], function (require,undef, Mustache) {
                             $.getJSON(apiHost + '/smct/refund?_id='+_id+'&reason=h5_none&callback=?', function (r) {
 
                                 if (r.code == 0) {
+                                    alert('退款申请已经提交,请等待后台处理。\n一般24小时内会处理完成,请注意查收退款')
                                     getAndRender();
                                 } else {
                                     alert(r.error)
