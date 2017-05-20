@@ -10,7 +10,7 @@ define(['require','zepto', 'mustache'], function (require,undef, Mustache) {
         return [d.getFullYear(), prefix0(d.getMonth() + 1), prefix0(d.getDate())].join('-') + ' ' + [d.getHours(), prefix0(d.getMinutes()), prefix0(d.getSeconds())].join(':')
     };
     var $list, tpl;
-    var apiHost = 'http://www.shaomachetie.com';
+    var apiHost = '//www.shaomachetie.com';
     if(document.documentElement.getAttribute('env')=='local') {
         apiHost = 'http://localhost:8000'
     }
