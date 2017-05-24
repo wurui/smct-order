@@ -9,7 +9,8 @@ define(['require','zepto', 'mustache'], function (require,undef, Mustache) {
         };
         return [d.getFullYear(), prefix0(d.getMonth() + 1), prefix0(d.getDate())].join('-') + ' ' + [d.getHours(), prefix0(d.getMinutes()), prefix0(d.getSeconds())].join(':')
     };
-    var $list, tpl;
+    var $list, tpl,
+        buildurl;
     var apiHost = '//www.shaomachetie.com';
     if(document.documentElement.getAttribute('env')=='local') {
         apiHost = 'http://localhost:8000'
@@ -156,7 +157,7 @@ define(['require','zepto', 'mustache'], function (require,undef, Mustache) {
                 });
 
             } else {
-                $list.html('<i class="iconfont">&#xe631;</i>&nbsp;&nbsp;<br/>暂无订单,赶紧去定制一个你喜欢的车贴吧~<br/><a href="smct-build">开始定制 &raquo;</a><br/><br/>').addClass('empty-order');
+                $list.html('<i class="iconfont">&#xe631;</i>&nbsp;&nbsp;<br/>暂无订单,赶紧去定制一个你喜欢的车贴吧~<br/><a href="'+buildurl+'">开始定制 &raquo;</a><br/><br/>').addClass('empty-order');
 
             }
         });
@@ -168,6 +169,7 @@ define(['require','zepto', 'mustache'], function (require,undef, Mustache) {
 
     return {
         init: function ($mod) {
+            buildurl=$mod.attr('data-buildurl');
             tpl = $('.J_tpl', $mod).html();
 
             $list = $('.J_list', $mod).on('click', function (e) {
