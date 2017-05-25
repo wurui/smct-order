@@ -16,7 +16,7 @@ define(['require','zepto', 'mustache'], function (require,undef, Mustache) {
         apiHost = 'http://localhost:8000'
     }
     var addrToString = function () {
-        if (/北京|天津|上海|重庆|/.test(this.province)) {
+        if (/北京|天津|上海|重庆/.test(this.province)) {
             this.city = '';
         }
         return [this.name, '(' + this.phone + ')', this.province, this.city, this.district, this.detail].join(' ')
