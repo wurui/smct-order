@@ -49,7 +49,7 @@ define(['mustache'],function (Mustache) {
 
         var wuliuData = showWuliu.cachedData[no];
         if (!wuliuData) {
-            $.getJSON('http://www.shaomachetie.com/smct/wuliu?no='+no+'&callback=?', function (r) {
+            $.getJSON('https://www.shaomachetie.com/smct/wuliu?no='+no+'&callback=?', function (r) {
                 //console.log(r);
                 showWuliu.cachedData[no] = r;
                 showWuliu(no,fn)
