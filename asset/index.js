@@ -185,6 +185,9 @@ define(['require','zepto', 'mustache'], function (require,undef, Mustache) {
 
                                 if (r.code == 0) {
                                     $tar.closest('table').remove();
+                                    if(!$list.children('table').length){
+                                        getAndRender()
+                                    }
                                 } else {
                                     alert(r.error)
                                 }
