@@ -26,6 +26,8 @@ define(['require','zepto', 'mustache'], function (require,undef, Mustache) {
         switch (st) {
             case 0:
                 return '<font color="#f60">待付款</font>';
+            case 0.1:
+                return '<font color="#f60">激活时付款</font>';
             case 1:
                 return '<font color="#666">已付款</font>';
             case 2:
