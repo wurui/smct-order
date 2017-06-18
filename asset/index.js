@@ -141,17 +141,7 @@ define(['require','zepto', 'mustache'], function (require,undef, Mustache) {
 
 
                     $list.html(Mustache.render(tpl, {
-                        data: list,
-                        fullcarlogo:function(){
-
-                            var str=''
-                            if(/\d+/.test(this)){
-                                str='cars/'+this+'.png'
-                            }else{
-                                str='carlogo/'+this+'.jpg'
-                            }
-                            return 'http://v.oxm1.cc/'+str
-                        }
+                        data: list
                     }));
 
                 });
