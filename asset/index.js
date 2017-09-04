@@ -1,4 +1,4 @@
-define(['require','zepto', 'mustache'], function (require,undef, Mustache) {
+define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Mustache, OXJS) {
 
     var timeformat = function (d) {
         if (typeof d != 'object') {
@@ -10,9 +10,9 @@ define(['require','zepto', 'mustache'], function (require,undef, Mustache) {
         return [d.getFullYear(), prefix0(d.getMonth() + 1), prefix0(d.getDate())].join('-') + ' ' + [d.getHours(), prefix0(d.getMinutes()), prefix0(d.getSeconds())].join(':')
     };
     var $list, tpl,
-        buildurl;
+        buildurl,payurl;
     var apiHost = '//www.shaomachetie.com';
-    if(document.documentElement.getAttribute('env')=='local') {
+    if (document.documentElement.getAttribute('env') == 'local') {
         apiHost = 'http://localhost:8000'
     }
     var addrToString = function () {
@@ -24,6 +24,8 @@ define(['require','zepto', 'mustache'], function (require,undef, Mustache) {
     var statusDesc = function (data) {
         var st = data.status;
         switch (st) {
+            case -1:
+                return '<font color="#999">订单已关闭</font>';
             case 0:
                 return '<font color="#f60">待付款</font>';
             case 0.1:
@@ -52,44 +54,42 @@ define(['require','zepto', 'mustache'], function (require,undef, Mustache) {
         var st = data.status;
         switch (st) {
             case 0:
-                return '<button data-role="close" type="button">关闭订单</button>&nbsp;&nbsp;&nbsp;&nbsp;<a href="' + apiHost + '/alipay/pay?client=h5&from=smct&oid=' + data._id + '">去付款 &raquo;</a>';
+                return '<button data-role="close" type="button">关闭订单</button>&nbsp;&nbsp;&nbsp;&nbsp;<a href="' + payurl + '?oid=' + data._id + '">去付款 &raquo;</a>';
             case 1:
                 return '<button data-role="refund" type="button">退款</button>';
-            case 2:
-                return '';
             case 3:
                 return '<button data-role="wuliu" data-no="' + data.delivery_no + '">查看物流</button>';
+            case 2:
             case 4:
-                return '';
             case 8:
                 return ''
             case 9.4:
                 return '退款失败,请等待客服处理'
             case 9.1:
-                return data.reason=='h5_none'?'':'退款理由:' + data.reason
+                return data.reason == 'h5_none' ? '' : '退款理由:' + data.reason
             case 9:
-                return (data.reason=='h5_none'?'':'退款理由:' + data.reason) + '&nbsp;&nbsp;&nbsp;&nbsp;<button data-role="cancelrefund" type="button">撤消退款</button>'
+                return (data.reason == 'h5_none' ? '' : '退款理由:' + data.reason) + '&nbsp;&nbsp;&nbsp;&nbsp;<button data-role="cancelrefund" type="button">撤消退款</button>'
             default :
-                return '<button data-role="del" type="button">关闭订单</button>'
+                return '<button data-role="del" type="button">删除订单</button>'
         }
     };
-    var showWuliu=function($tar){
-        var wldiv=$('.J_wuliu',$tar.parent());
-        if($tar.attr('data-wuliu')=='open'){
+    var showWuliu = function ($tar) {
+        var wldiv = $('.J_wuliu', $tar.parent());
+        if ($tar.attr('data-wuliu') == 'open') {
 
             $tar.html('查看物流')
             wldiv.hide();
-            $tar.attr('data-wuliu','close')
-        }else{
+            $tar.attr('data-wuliu', 'close')
+        } else {
 
-            $tar.attr('data-wuliu','open')
-            if(wldiv.length){
+            $tar.attr('data-wuliu', 'open')
+            if (wldiv.length) {
                 wldiv.show();
                 $tar.html('收起物流');
-            }else{
-                var no=$tar.attr('data-no');
-                require(['./wuliu'],function(wuliu){
-                    wuliu(no,function(html){
+            } else {
+                var no = $tar.attr('data-no');
+                require(['./wuliu'], function (wuliu) {
+                    wuliu(no, function (html) {
                         $tar.parent().append(html);
                         $tar.html('收起物流');
                     });
@@ -99,26 +99,33 @@ define(['require','zepto', 'mustache'], function (require,undef, Mustache) {
         }
 
     };
+    var uid,
+        customizeRest,
+        orderRest;
 
     var getAndRender = function () {
-        $.getJSON(apiHost + '/smct/getorders?callback=?', function (r) {
-            if (r && r.data && r.data.length) {
-                var list = r.data;
+
+        orderRest.get(function (r) {
+            // $.getJSON(apiHost + '/smct/getorders?callback=?', function (r) {
+            if (r && r.length) {
+                var list = r;
                 var bids = [];
                 //var totalfee = 0;
                 for (var i = 0, n; n = list[i++];) {
                     //n.order_no= n._id.toUpperCase();
                     //n.order_time= (new Date(n.cts)).toLocaleString();
-                    for (var j = 0, pack; pack = n.pack[j++];) {
-                        bids.push(pack.bid);
+                    var pack = n.pack;
+                    if (pack && pack.length) {
+                        for (var j = 0; j < pack.length; j++) {
+                            var packitem = pack[j];
+                            bids.push(packitem.customize);
+                        }
                     }
-
-
                 }
-                ;
+                customizeRest.get({ids: bids.join(',')}, function (r) {
 
-                $.getJSON(apiHost + '/smct/getbuilds?bids=' + bids.join(',') + '&callback=?', function (r) {
-                    var buildObj = {}, builds = r.data;
+                    // $.getJSON(apiHost + '/smct/getbuilds?bids=' + bids.join(',') + '&callback=?', function (r) {
+                    var buildObj = {}, builds = r;
                     for (var i = 0, build; build = builds[i++];) {
                         buildObj[build._id] = build;
                         //console.log(build._id)
@@ -127,41 +134,64 @@ define(['require','zepto', 'mustache'], function (require,undef, Mustache) {
 
                     for (var i = 0, n; n = list[i++];) {
                         n.order_no = n._id.toUpperCase();
-                        n.order_time = timeformat(n.cts);
+                        n.order_time = n.cts?timeformat(n.cts): n.time;
                         n.address = addrToString.call(n.delivery)
                         //n.status='已付款';
                         n.op = orderOP(n);
                         n.statusDesc = statusDesc(n)
-                        n.totalsum = (n.totalsum - 0).toFixed(2)
-                        for (var j = 0, pack; pack = n.pack[j]; j++) {
+                        n.totalsum = (n.totalfee - 0).toFixed(2);
+                        if (n.pack && n.pack.length) {
+                            for (var j = 0, pack; pack = n.pack[j]; j++) {
 
-                            pack.setting = buildObj[pack.bid] && buildObj[pack.bid].setting;
-                            //console.log(pack,buildObj[pack.bid])
+                                pack.setting = buildObj[pack.customize] && param2settings(buildObj[pack.customize].props)
+
+                                //console.log(pack.setting)
+                            }
                         }
                     }
-                    ;
-
 
                     $list.html(Mustache.render(tpl, {
-                        data: list
+                        data: list,
+                        fullcarlogo: function () {
+
+                            var str = ''
+                            if (/\d+/.test(this)) {
+                                str = 'cars/' + this + '.png'
+                            } else {
+                                str = 'carlogo/' + this + '.jpg'
+                            }
+                            return 'http://v.oxm1.cc/' + str
+                        }
                     }));
 
                 });
 
             } else {
-                $list.html('<i class="iconfont">&#xe631;</i>&nbsp;&nbsp;<br/>暂无订单,赶紧去定制一个你喜欢的车贴吧~<br/><a href="'+buildurl+'">开始定制 &raquo;</a><br/><br/>').addClass('empty-order');
+                $list.html('<i class="iconfont">&#xe631;</i>&nbsp;&nbsp;<br/>暂无订单,赶紧去定制一个你喜欢的车贴吧~<br/><a href="' + buildurl + '">开始定制 &raquo;</a><br/><br/>').addClass('empty-order');
 
             }
         });
     };
 
-
-    getAndRender();
+    var param2settings = function (param) {
+        if (!param)return {};
+        var obj = {};
+        for (var i = 0, n; n = param[i++];) {
+            obj[n.label] = n.value;
+        }//console.log(obj)
+        return obj;
+    };
 
 
     return {
         init: function ($mod) {
-            buildurl=$mod.attr('data-buildurl');
+            uid = $mod.attr('data-uid');
+            payurl=$mod.attr('data-payurl');
+            customizeRest = OXJS.useREST('customize/e0ee59439b39fcc3/u/' + encodeURIComponent(uid)).setDevHost('http://local.openxsl.com/');//md5('saomachetie')
+            orderRest = OXJS.useREST('order/e0ee59439b39fcc3/u/' + encodeURIComponent(uid)).setDevHost('http://local.openxsl.com/');
+            getAndRender();
+
+            buildurl = $mod.attr('data-buildurl');
             tpl = $('.J_tpl', $mod).html();
 
             $list = $('.J_list', $mod).on('click', function (e) {
@@ -171,15 +201,42 @@ define(['require','zepto', 'mustache'], function (require,undef, Mustache) {
                     _id = $tar.closest('table').attr('data-id');
                 switch (role) {
                     case 'del':
-                    case 'close':
-                        if (confirm('确认关闭此订单?\r\n订单列表中将看不到此订单')) {
-                            $.getJSON(apiHost + '/smct/delorder?_id='+_id+'&callback=?',  function (r) {
+                        if (confirm('确认删除此订单?\r\n订单列表中将无法看到此订单')) {
+                            orderRest.del({
+                                _id: _id
+                            }, function (r) {
+                                //$.getJSON(apiHost + '/smct/delorder?_id=' + _id + '&callback=?', function (r) {
 
                                 if (r.code == 0) {
+                                    getAndRender()
+                                    /*
+                                     $tar.closest('table').remove();
+                                     if (!$list.children('table').length) {
+                                     getAndRender()
+                                     }
+                                     */
+                                } else {
+                                    alert(r.error)
+                                }
+                            });
+                        }
+                        break
+                    case 'close':
+                        if (confirm('确认关闭此订单?\r\n如有需要请重新提交新订单')) {
+                            orderRest.put({
+                                _id: _id,
+                                status: -1
+                            }, function (r) {
+                            //$.getJSON(apiHost + '/smct/delorder?_id=' + _id + '&callback=?', function (r) {
+
+                                if (r.code == 0) {
+                                    getAndRender()
+                                    /*
                                     $tar.closest('table').remove();
-                                    if(!$list.children('table').length){
+                                    if (!$list.children('table').length) {
                                         getAndRender()
                                     }
+                                    */
                                 } else {
                                     alert(r.error)
                                 }
@@ -189,8 +246,12 @@ define(['require','zepto', 'mustache'], function (require,undef, Mustache) {
                         break
                     case 'cancelrefund':
 
-                        if(confirm('确认取消退款?\r\n订单将恢复到已付款状态,商家将继续跟进处理')){
-                            $.getJSON(apiHost + '/smct/cancelrefund?_id='+_id+'&callback=?', function (r) {
+                        if (confirm('确认取消退款?\r\n订单将恢复到已付款状态,商家将继续跟进处理')) {
+                            orderRest.put({
+                                _id: _id,
+                                status: 1
+                            }, function (r) {
+                            //$.getJSON(apiHost + '/smct/cancelrefund?_id=' + _id + '&callback=?', function (r) {
 
                                 if (r.code == 0) {
                                     getAndRender();
@@ -203,14 +264,20 @@ define(['require','zepto', 'mustache'], function (require,undef, Mustache) {
 
                         break
                     case 'refund':
-                        if(confirm('确认退款?')){
-                            $.getJSON(apiHost + '/smct/refund?_id='+_id+'&reason=h5_none&callback=?', function (r) {
+                        if (confirm('确认退款?')) {
+
+                            orderRest.put({
+                                _id: _id,
+                                status: 9
+                            }, function (r) {
+
+                                //$.getJSON(apiHost + '/smct/refund?_id='+_id+'&reason=h5_none&callback=?', function (r) {
 
                                 if (r.code == 0) {
                                     alert('退款申请已经提交,请等待后台处理。\n一般24小时内会处理完成,请注意查收退款')
                                     getAndRender();
                                 } else {
-                                    alert(r.error)
+                                    alert(r.error || r.message)
                                 }
                             });
                         }
