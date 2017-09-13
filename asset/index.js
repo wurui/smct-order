@@ -1,5 +1,18 @@
 define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Mustache, OXJS) {
 
+    var StatusCodes={
+        NEW:0,
+        UNPAID:11,
+        PAID:1,
+        RECEIVED:2,
+        DELIVERED:3,
+        COMPLETED:4,
+        CLOSED:5,
+        REFUNDED:8,
+        REFUND:9,
+        REFUNDING:91,
+        REFUND_FAIL:94
+    };
     var timeformat = function (d) {
         if (typeof d != 'object') {
             d = new Date(d);
@@ -24,27 +37,27 @@ define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Musta
     var statusDesc = function (data) {
         var st = data.status;
         switch (st) {
-            case -1:
+            case StatusCodes.CLOSED:
                 return '<font color="#999">订单已关闭</font>';
-            case 0:
+            case StatusCodes.NEW:
                 return '<font color="#f60">待付款</font>';
-            case 0.1:
+            case StatusCodes.UNPAID:
                 return '<font color="#f60">激活时付款</font>';
-            case 1:
+            case StatusCodes.PAID:
                 return '<font color="#666">已付款</font>';
-            case 2:
+            case StatusCodes.RECEIVED:
                 return '<font color="#666">生产中</font>';
-            case 3:
+            case StatusCodes.DELIVERED:
                 return '<font color="#060">已发货</font>';
-            case 4:
+            case StatusCodes.COMPLETED:
                 return '<font>订单完成</font>';
-            case 8:
+            case StatusCodes.REFUNDED:
                 return '<font color="#999">已退款</font>'
-            case 9.4:
+            case StatusCodes.REFUND_FAIL:
                 return '<font color="#f10">退款失败</font>'
-            case 9.1:
+            case StatusCodes.REFUNDING:
                 return '<font color="#666">退款处理中</font>'
-            case 9:
+            case StatusCodes.REFUND:
                 return '<font color="#666">退款中</font>'
             default :
                 return ''
@@ -53,22 +66,22 @@ define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Musta
     var orderOP = function (data) {
         var st = data.status;
         switch (st) {
-            case 0:
+            case StatusCodes.NEW:
                 return '<button data-role="close" type="button">关闭订单</button>&nbsp;&nbsp;&nbsp;&nbsp;<a href="' + payurl + '?oid=' + data._id + '">去付款 &raquo;</a>';
-            case 1:
+            case StatusCodes.PAID:
                 return '<button data-role="refund" type="button">退款</button>';
-            case 3:
+            case StatusCodes.DELIVERED:
                 return '<button data-role="wuliu" data-no="' + data.delivery_no + '">查看物流</button>';
-            case 2:
-            case 4:
-            case 8:
+            case StatusCodes.RECEIVED:
+            case StatusCodes.COMPLETED:
+            case StatusCodes.REFUNDED:
                 return ''
-            case 9.4:
+            case StatusCodes.REFUND_FAIL:
                 return '退款失败,请等待客服处理'
-            case 9.1:
-                return data.reason == 'h5_none' ? '' : '退款理由:' + data.reason
-            case 9:
-                return (data.reason == 'h5_none' ? '' : '退款理由:' + data.reason) + '&nbsp;&nbsp;&nbsp;&nbsp;<button data-role="cancelrefund" type="button">撤消退款</button>'
+            case StatusCodes.REFUNDING:
+                return ''//data.reason == 'h5_none' ? '' : '退款理由:' + data.reason
+            case StatusCodes.REFUND:
+                return  '&nbsp;&nbsp;&nbsp;&nbsp;<button data-role="cancelrefund" type="button">撤消退款</button>'
             default :
                 return '<button data-role="del" type="button">删除订单</button>'
         }
@@ -225,7 +238,7 @@ define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Musta
                         if (confirm('确认关闭此订单?\r\n如有需要请重新提交新订单')) {
                             orderRest.put({
                                 _id: _id,
-                                status: -1
+                                status: StatusCodes.CLOSED
                             }, function (r) {
                             //$.getJSON(apiHost + '/smct/delorder?_id=' + _id + '&callback=?', function (r) {
 
@@ -249,7 +262,7 @@ define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Musta
                         if (confirm('确认取消退款?\r\n订单将恢复到已付款状态,商家将继续跟进处理')) {
                             orderRest.put({
                                 _id: _id,
-                                status: 1
+                                status: StatusCodes.PAID
                             }, function (r) {
                             //$.getJSON(apiHost + '/smct/cancelrefund?_id=' + _id + '&callback=?', function (r) {
 
@@ -268,7 +281,7 @@ define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Musta
 
                             orderRest.put({
                                 _id: _id,
-                                status: 9
+                                status: StatusCodes.REFUND
                             }, function (r) {
 
                                 //$.getJSON(apiHost + '/smct/refund?_id='+_id+'&reason=h5_none&callback=?', function (r) {
