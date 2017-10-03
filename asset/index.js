@@ -200,8 +200,8 @@ define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Musta
         init: function ($mod) {
             uid = $mod.attr('data-uid');
             payurl=$mod.attr('data-payurl');
-            customizeRest = OXJS.useREST('customize/e0ee59439b39fcc3/u/' + encodeURIComponent(uid)).setDevHost('http://local.openxsl.com/');//md5('saomachetie')
-            orderRest = OXJS.useREST('order/e0ee59439b39fcc3/u/' + encodeURIComponent(uid)).setDevHost('http://local.openxsl.com/');
+            customizeRest = OXJS.useREST('customize').setDevHost('http://dev.openxsl.com/');//md5('saomachetie')
+            orderRest = OXJS.useREST('order').setDevHost('http://dev.openxsl.com/');
             getAndRender();
 
             buildurl = $mod.attr('data-buildurl');
