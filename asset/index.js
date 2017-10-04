@@ -118,7 +118,7 @@ define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Musta
 
     var getAndRender = function () {
 
-        orderRest.get(function (r) {
+        orderRest.getmy(function (r) {
             // $.getJSON(apiHost + '/smct/getorders?callback=?', function (r) {
             if (r && r.length) {
                 var list = r;
