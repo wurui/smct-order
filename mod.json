@@ -1,6 +1,6 @@
 {
   "name": "smct-order",
   "version": "0.0.1",
-  "apiDependencies": null
+  "apiDependencies": ["orders","status","package-tracking"]
 }
 
