@@ -54,7 +54,7 @@ define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Musta
                 var status=r && r.status;
                 if(status && status.length){
                     for(var i=0;i<status.length;i++){
-                        StatusCodes[status.name]=status.code;
+                        StatusCodes[status[i].name]=status[i].code;
 
                     }
 
