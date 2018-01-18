@@ -46,7 +46,7 @@ define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Musta
 
             };
 
-
+/*
             var StatusCodes={};
             $mod.OXGet({
                 status:{}
@@ -60,6 +60,7 @@ define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Musta
 
                 }
             })
+            */
 
             var $list = $('.J_list', $mod).on('click', function (e) {
                 var tar = e.target,
@@ -70,7 +71,7 @@ define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Musta
                     case 'del':
                         if (confirm('确认删除此订单?\r\n订单列表中将无法看到此订单')) {
                             $mod.OXDelete({
-                                orders:{_id: _id}
+                                orders:{_id: _id,$deletor:'default'}
                             }, function (r) {
                                 $mod.OXRefresh()
                             });
@@ -81,7 +82,8 @@ define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Musta
                             $mod.OXPut({
                                 orders:{
                                     _id: _id,
-                                    status: StatusCodes.closed
+                                    //status: StatusCodes.closed
+                                    $updater:role
                                 }
                                 
                             }, function (r) {
@@ -99,7 +101,8 @@ define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Musta
                             $mod.OXPut({
                                 orders:{
                                     _id: _id,
-                                    status: StatusCodes.paid
+                                    //status: StatusCodes.paid
+                                    $updater:role
                                 }
                                 
                             }, function (r) {
@@ -117,7 +120,8 @@ define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Musta
                             $mod.OXPut({
                                 orders:{
                                     _id: _id,
-                                    status: StatusCodes.refund_applied
+                                    //status: StatusCodes.refund_applied
+                                    $updater:role
                                 }
                             }, function (r) {
 
@@ -137,7 +141,8 @@ define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Musta
                             $mod.OXPut({
                                 orders:{
                                     _id: _id,
-                                    status: StatusCodes.completed
+                                    //status: StatusCodes.completed
+                                    $updater:role
                                 }
                             }, function (r) {
 
