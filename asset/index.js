@@ -1,4 +1,4 @@
-define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Mustache, OXJS) {
+define(['require', 'zepto',  'oxjs'], function (require, undef, OXJS) {
 
 
     
@@ -71,7 +71,7 @@ define(['require', 'zepto', 'mustache', 'oxjs'], function (require, undef, Musta
                     case 'del':
                         if (confirm('确认删除此订单?\r\n订单列表中将无法看到此订单')) {
                             $mod.OXDelete({
-                                orders:{_id: _id,$deletor:'default'}
+                                orders:{_id: _id,$deleter:'default'}
                             }, function (r) {
                                 $mod.OXRefresh()
                             });
