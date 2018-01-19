@@ -62,7 +62,7 @@ define(['require', 'zepto',  'oxjs'], function (require, undef, OXJS) {
             })
             */
 
-            var $list = $('.J_list', $mod).on('click', function (e) {
+            $mod.on('click', function (e) {
                 var tar = e.target,
                     $tar = $(tar),
                     role = $tar.attr('data-role'),
