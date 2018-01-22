@@ -58,7 +58,9 @@
 
            
             <xsl:if test="count(data/orders/i) = 0">
-                 <i class="iconfont">&#xe631;</i>&#160;&#160;<br/>暂无订单,赶紧去定制一个你喜欢的车贴吧~<br/><a href="{$buildurl}">开始定制 &#187;</a><br/><br/>
+                <div class="empty-order">
+                    <i class="iconfont">&#xe631;</i>&#160;&#160;<br/>暂无订单,赶紧去定制一个你喜欢的车贴吧~<br/><a href="{$buildurl}">开始定制 &#187;</a><br/><br/>
+                </div>
             </xsl:if>
             <div class="J_list list">
                 <xsl:variable name="statusCode" select="data/status"/>
